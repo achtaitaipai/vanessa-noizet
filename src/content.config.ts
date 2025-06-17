@@ -15,5 +15,12 @@ export const collections = {
 			title: z.string(),
 			date: z.date()
 		})
+	}),
+	hommages: defineCollection({
+		loader: glob({ pattern: '**/*.md', base: 'data/hommages' }),
+		schema: z.object({
+			title: z.string(),
+			date: z.date()
+		})
 	})
 }
