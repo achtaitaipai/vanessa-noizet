@@ -22,5 +22,12 @@ export const collections = {
 			title: z.string(),
 			date: z.date()
 		})
+	}),
+	colloques: defineCollection({
+		loader: glob({ pattern: '**/*.md', base: 'data/colloques' }),
+		schema: z.object({
+			title: z.string(),
+			date: z.date()
+		})
 	})
 }
