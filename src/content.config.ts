@@ -29,5 +29,12 @@ export const collections = {
 			title: z.string(),
 			date: z.date()
 		})
+	}),
+	ouvrages: defineCollection({
+		loader: glob({ pattern: '**/*.md', base: 'data/ouvrages' }),
+		schema: z.object({
+			title: z.string(),
+			date: z.date()
+		})
 	})
 }
