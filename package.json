@@ -9,6 +9,9 @@
 		"astro": "astro",
 		"format": "prettier --write ."
 	},
+	"imports": {
+		"#*": "./src/*"
+	},
 	"dependencies": {
 		"astro": "^5.9.4"
 	},
