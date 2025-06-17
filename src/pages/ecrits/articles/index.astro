@@ -1,0 +1,17 @@
+---
+import BaseLayout from '#layouts/Base.astro'
+import Link from 'astro-typesafe-routes/link'
+import { getCollection } from 'astro:content'
+
+const entries = await getCollection('articles')
+---
+
+<BaseLayout>
+	{
+		entries.map((itm) => (
+			<Link to="/ecrits/articles/[slug]" params={{ slug: itm.id }}>
+				{itm.data.title}
+			</Link>
+		))
+	}
+</BaseLayout>
