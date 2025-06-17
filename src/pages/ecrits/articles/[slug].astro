@@ -6,11 +6,11 @@ import { render } from 'astro:content'
 
 export const getStaticPaths = (async () => {
 	const entries = await getCollection('articles')
-	return entries.map((article) => ({ params: { slug: article.id }, props: article }))
+	return entries.map((post) => ({ params: { slug: post.id }, props: post }))
 }) satisfies GetStaticPaths
 
-const article = Astro.props
-const { Content } = await render(article)
+const post = Astro.props
+const { Content } = await render(post)
 ---
 
 <BaseLayout>
