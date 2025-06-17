@@ -13,7 +13,8 @@
 		"#*": "./src/*"
 	},
 	"dependencies": {
-		"astro": "^5.9.4"
+		"astro": "^5.9.4",
+		"astro-typesafe-routes": "^4.2.5"
 	},
 	"devDependencies": {
 		"prettier": "^3.5.3",
