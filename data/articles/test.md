@@ -1,5 +1,5 @@
 ---
-title: Ceci est un test
+title: Ceci est un test d'article
 date: 2025-06-17
 ---
 
