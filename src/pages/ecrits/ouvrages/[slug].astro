@@ -1,0 +1,13 @@
+---
+import BaseLayout from '#layouts/Base.astro'
+import { getStaticPathsFromCollection } from '#lib/routes.ts'
+import { render } from 'astro:content'
+
+export const getStaticPaths = getStaticPathsFromCollection('ouvrages')
+const post = Astro.props
+const { Content } = await render(post)
+---
+
+<BaseLayout>
+	<Content />
+</BaseLayout>
