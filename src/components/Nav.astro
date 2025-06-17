@@ -1,0 +1,37 @@
+---
+import Link from 'astro-typesafe-routes/link'
+---
+
+<nav>
+	<ul>
+		<li>
+			À propos
+			<ul>
+				<li><Link to="/a-propos/biographie">Biographie</Link></li>
+				<li><Link to="/a-propos/cv">Cv</Link></li>
+			</ul>
+		</li>
+		<li>
+			<Link to="/hommages">Hommages</Link>
+		</li>
+		<li>
+			<Link to="/expositions">Expositions</Link>
+		</li>
+		<li>
+			Écrits
+			<ul>
+				<li><Link to="/ecrits/articles">Articles</Link></li>
+				<li><Link to="/ecrits/ouvrages">Ouvrages</Link></li>
+				<li><Link to="/ecrits/bibliographie">Bibliographie</Link></li>
+			</ul>
+		</li>
+		<li>
+			Recherche
+			<ul>
+				<li><Link to="/recherche/colloques">Colloques</Link></li>
+				<li><Link to="/recherche/memoire">Memoire</Link></li>
+				<li><Link to="/recherche/projet-de-these">Projet de thèse</Link></li>
+			</ul>
+		</li>
+	</ul>
+</nav>
