@@ -114,32 +114,32 @@ Styles are imported in cascade order of specificity:
 
 ```mermaid
 graph TD
-    A[/] --> B[a-propos/]
-    A --> C[ecrits/]
-    A --> D[expositions/]
-    A --> E[hommages/]
-    A --> F[recherche/]
+    A["/"] --> B["a-propos/"]
+    A --> C["ecrits/"]
+    A --> D["expositions/"]
+    A --> E["hommages/"]
+    A --> F["recherche/"]
     
-    B --> B1[biographie]
-    B --> B2[cv]
+    B --> B1["biographie"]
+    B --> B2["cv"]
     
-    C --> C1[articles/]
-    C --> C2[ouvrages/]
-    C --> C3[bibliographie]
-    C1 --> C1a[index]
+    C --> C1["articles/"]
+    C --> C2["ouvrages/"]
+    C --> C3["bibliographie"]
+    C1 --> C1a["index"]
     C1 --> C1b["[slug]"]
-    C2 --> C2a[index]
+    C2 --> C2a["index"]
     C2 --> C2b["[slug]"]
     
-    D --> D1[index]
+    D --> D1["index"]
     D --> D2["[slug]"]
     
-    E --> E1[index]
+    E --> E1["index"]
     E --> E2["[slug]"]
     
-    F --> F1[colloques/]
-    F --> F2[memoire]
-    F --> F3[projet-de-these]
-    F1 --> F1a[index]
+    F --> F1["colloques/"]
+    F --> F2["memoire"]
+    F --> F3["projet-de-these"]
+    F1 --> F1a["index"]
     F1 --> F1b["[slug]"]
 ```
