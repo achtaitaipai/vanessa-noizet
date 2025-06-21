@@ -1,0 +1,152 @@
+---
+type Props = {
+	label: string
+	class?: string
+}
+
+const { label, class: className } = Astro.props
+const dropdownId = 'dropdown-' + crypto.randomUUID().split('-')[0]
+---
+
+<c-dropdown>
+	<div class="wrapper">
+		<button class={className} aria-expanded="false" aria-haspopup="true" aria-controls={dropdownId}>
+			<span> {label} </span>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke-width="1.5"
+				stroke="currentColor"
+				width=".8em"
+				height=".8em"
+			>
+				<path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+			</svg>
+		</button>
+		<div class="content" id={dropdownId} role="menu">
+			<slot />
+		</div>
+	</div>
+</c-dropdown>
+
+<script>
+	import gsap from 'gsap'
+
+	class DropdownElement extends HTMLElement {
+		private button: HTMLButtonElement | null = null
+		private content: HTMLElement | null = null
+		private isOpen = false
+		private timeline: gsap.core.Timeline | null = null
+
+		connectedCallback() {
+			this.button = this.querySelector('button')
+			this.content = this.querySelector('.content')
+
+			if (this.button && this.content) {
+				this.setupAnimation()
+				this.button.addEventListener('click', this.toggle.bind(this))
+				document.addEventListener('click', this.handleOutsideClick.bind(this))
+			}
+		}
+
+		disconnectedCallback() {
+			if (this.button) {
+				this.button.removeEventListener('click', this.toggle.bind(this))
+			}
+			document.removeEventListener('click', this.handleOutsideClick.bind(this))
+		}
+
+		setupAnimation() {
+			if (!this.content) return
+
+			this.timeline = gsap.timeline({ paused: true })
+
+			gsap.set(this.content, {
+				display: 'block',
+				opacity: 0,
+				y: -10,
+				scaleY: 0,
+				transformOrigin: 'top center',
+			})
+
+			this.timeline.to(this.content, {
+				opacity: 1,
+				y: 0,
+				scaleY: 1,
+				duration: 0.2,
+			})
+		}
+
+		toggle() {
+			this.isOpen = !this.isOpen
+			this.updateDOM()
+		}
+
+		close() {
+			if (this.isOpen) {
+				this.isOpen = false
+				this.updateDOM()
+			}
+		}
+
+		updateDOM() {
+			if (this.button && this.content && this.timeline) {
+				this.button.setAttribute('aria-expanded', this.isOpen.toString())
+
+				if (this.isOpen) {
+					this.timeline.play()
+				} else {
+					this.timeline.reverse()
+				}
+			}
+		}
+
+		handleOutsideClick(event: Event) {
+			if (!this.contains(event.target as Node)) {
+				this.close()
+			}
+		}
+	}
+
+	customElements.define('c-dropdown', DropdownElement)
+</script>
+
+<style>
+	.wrapper {
+		position: relative;
+	}
+
+	button {
+		display: flex;
+		align-items: center;
+		gap: var(--space-3xs);
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		white-space: nowrap;
+	}
+	svg {
+		flex-shrink: 0;
+		transition: transform 0.2s;
+		transform-origin: center;
+	}
+	[aria-expanded='true']svg {
+		transform: rotate(180deg);
+	}
+	.content {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		background: var(--clr-surface);
+		border: 1px solid var(--clr-border);
+		border-radius: 0.25rem;
+		/* padding: var(--space-xs); */
+		min-width: 12rem;
+		z-index: 10;
+	}
+
+	div {
+		position: relative;
+	}
+</style>
