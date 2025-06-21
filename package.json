@@ -13,8 +13,11 @@
 		"#*": "./src/*"
 	},
 	"dependencies": {
+		"@fontsource/dm-serif-display": "^5.2.6",
+		"@fontsource/dm-serif-text": "^5.2.6",
 		"astro": "^5.9.4",
-		"astro-typesafe-routes": "^4.2.6"
+		"astro-typesafe-routes": "^4.2.6",
+		"open-color": "^1.9.1"
 	},
 	"devDependencies": {
 		"prettier": "^3.5.3",
