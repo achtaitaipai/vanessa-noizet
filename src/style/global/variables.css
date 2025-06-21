@@ -26,6 +26,8 @@
 	--fs-3: clamp(1.2458rem, 1.0781rem + 0.8385vw, 1.728rem);
 	--fs-4: clamp(1.4016rem, 1.1678rem + 1.1687vw, 2.0736rem);
 	--fs-5: clamp(1.5768rem, 1.2597rem + 1.5853vw, 2.4883rem);
+	--fs-6: clamp(1.7739rem, 1.3523rem + 2.108vw, 2.986rem);
+	--fs-7: clamp(1.9956rem, 1.4434rem + 2.761vw, 3.5832rem);
 
 	/* SPACES */
 	--space-3xs: clamp(0.25rem, 0.25rem + 0vw, 0.25rem);
