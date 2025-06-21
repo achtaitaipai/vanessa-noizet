@@ -1,37 +1,82 @@
 ---
 import Link from 'astro-typesafe-routes/link'
+import Dropdown from './Dropdown.astro'
+
+type Props = {
+	class?: string
+}
+
+const { class: className } = Astro.props
 ---
 
-<nav>
-	<ul>
+<nav class:list={['container', className]}>
+	<ul class="links | gap-s">
 		<li>
-			À propos
-			<ul>
-				<li><Link to="/a-propos/biographie">Biographie</Link></li>
-				<li><Link to="/a-propos/cv">Cv</Link></li>
-			</ul>
+			<Dropdown label="À propos" class="px-2xs">
+				<ul class="menu-list">
+					<li>
+						<Link to="/a-propos/biographie">Biographie</Link>
+					</li>
+					<li>
+						<Link to="/a-propos/cv">Cv</Link>
+					</li>
+				</ul>
+			</Dropdown>
 		</li>
 		<li>
-			<Link to="/hommages">Hommages</Link>
+			<Link to="/hommages" class="px-2xs">Hommages</Link>
 		</li>
 		<li>
-			<Link to="/expositions">Expositions</Link>
+			<Link to="/expositions" class="px-2xs">Expositions</Link>
 		</li>
 		<li>
-			Écrits
-			<ul>
-				<li><Link to="/ecrits/articles">Articles</Link></li>
-				<li><Link to="/ecrits/ouvrages">Ouvrages</Link></li>
-				<li><Link to="/ecrits/bibliographie">Bibliographie</Link></li>
-			</ul>
+			<Dropdown label="Écrits" class="px-2xs">
+				<ul class="menu-list">
+					<li>
+						<Link to="/ecrits/articles">Articles</Link>
+					</li>
+					<li>
+						<Link to="/ecrits/ouvrages">Ouvrages</Link>
+					</li>
+					<li>
+						<Link to="/ecrits/bibliographie">Bibliographie</Link>
+					</li>
+				</ul>
+			</Dropdown>
 		</li>
 		<li>
-			Recherche
-			<ul>
-				<li><Link to="/recherche/colloques">Colloques</Link></li>
-				<li><Link to="/recherche/memoire">Memoire</Link></li>
-				<li><Link to="/recherche/projet-de-these">Projet de thèse</Link></li>
-			</ul>
+			<Dropdown label="Recherche" class="px-2xs">
+				<ul class="menu-list">
+					<li>
+						<Link to="/recherche/colloques">Colloques</Link>
+					</li>
+					<li>
+						<Link to="/recherche/memoire">Mémoire</Link>
+					</li>
+					<li>
+						<Link to="/recherche/projet-de-these">Projet de thèse</Link>
+					</li>
+				</ul>
+			</Dropdown>
 		</li>
 	</ul>
 </nav>
+
+<style>
+	nav .links {
+		display: flex;
+	}
+
+	.menu-list {
+		padding-inline: var(--space-xs);
+	}
+
+	.menu-list li {
+		display: block;
+		padding-block: var(--space-2xs);
+	}
+
+	.menu-list li + li {
+		border-block-start: 1px solid var(--clr-border);
+	}
+</style>
