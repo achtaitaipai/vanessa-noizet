@@ -8,23 +8,28 @@
 ## Component Architecture
 
 ### Import Alias
+
 Uses `#*` alias for clean imports pointing to `./src/*`:
+
 ```astro
-import BaseLayout from '#layouts/Base.astro'
-import Nav from '#components/Nav.astro'
+import BaseLayout from '#layouts/Base.astro' import Nav from '#components/Nav.astro'
 ```
 
 ### Structure
+
 - **Layouts** (`#layouts/`): HTML structure and global styles
 - **Components** (`#components/`): Reusable UI components with type-safe navigation
 
 ### Content Rendering
+
 Pages use Astro's content collections with the `render()` function:
+
 ```astro
 ---
 const { render } = await entry.render()
 const { Content } = render
 ---
+
 <Content />
 ```
 
