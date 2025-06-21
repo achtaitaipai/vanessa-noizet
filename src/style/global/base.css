@@ -2,8 +2,8 @@ body {
 	font-family: var(--font-base);
 	font-size: var(--fs-0);
 	line-height: 1.7;
-	color: #1a1a1a;
-	background-color: #fafafa;
+	color: var(--clr-text);
+	background-color: var(--clr-surface);
 }
 
 h1,
@@ -14,7 +14,7 @@ h5,
 h6 {
 	font-family: var(--font-display);
 	line-height: 1.2;
-	color: #0a0a0a;
+	color: var(--clr-text-strong);
 	text-wrap: balance;
 }
 
@@ -51,19 +51,22 @@ p {
 
 a {
 	color: currentColor;
-	text-underline-offset: 0.2ex;
-	text-decoration-thickness: 0.1em;
-	text-decoration-color: #0066cc;
 }
 
-a:hover {
-	text-decoration-color: #004499;
+a:not([class]) {
+	text-underline-offset: 0.2ex;
+	text-decoration-thickness: 0.1em;
+	text-decoration-color: var(--clr-accent-fade);
+}
+
+a:not([class]):hover {
+	text-decoration-color: var(--clr-accent);
 }
 
 blockquote {
 	max-inline-size: 50ch;
 	font-style: italic;
-	border-inline-start: 0.25rem solid #ddd;
+	border-inline-start: 0.25rem solid var(--clr-border-strong);
 	padding-inline-start: var(--space-m);
 }
 
@@ -71,4 +74,3 @@ ul,
 ol {
 	max-inline-size: 65ch;
 }
-
