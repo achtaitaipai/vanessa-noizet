@@ -4,6 +4,7 @@
 - **astro-typesafe-routes**: Type-safe routing with IntelliSense
 - **Open Color**: Consistent color palette system
 - **Utopia**: Fluid typography and spacing scales
+- **GSAP**: High-performance animation library for smooth UI interactions
 
 ## Component Architecture
 
@@ -18,7 +19,7 @@ import BaseLayout from '#layouts/Base.astro' import Nav from '#components/Nav.as
 ### Structure
 
 - **Layouts** (`#layouts/`): HTML structure and global styles
-- **Components** (`#components/`): Reusable UI components with type-safe navigation
+- **Components** (`#components/`): Reusable UI components
 
 ### Content Rendering
 
@@ -43,8 +44,23 @@ This project uses a structured CSS architecture organized into logical layers fo
 src/style/
 ├── index.css          # Main entry point
 ├── global/            # Global styles and foundations
+│   ├── variables.css  # CSS custom properties
+│   ├── reset.css      # CSS reset rules
+│   ├── base.css       # Base element styles
+│   └── index.css      # Imports all global styles
 ├── composition/       # Layout primitives and structural patterns
+│   ├── container.css  # Container layout component
+│   └── index.css      # Imports all composition styles
 └── utilities/         # Single-purpose utility classes
+    ├── border.css     # Border utilities
+    ├── flow.css       # Flow rhythm utility
+    ├── font-size.css  # Font size utilities
+    ├── gap.css        # Gap utilities
+    ├── margin.css     # Margin utilities
+    ├── padding.css    # Padding utilities
+    ├── text-align.css # Text alignment utilities
+    ├── text-color.css # Text color utilities
+    └── index.css      # Imports all utility styles
 ```
 
 ### Layers
@@ -59,7 +75,9 @@ Foundation styles that apply globally:
 
 #### 2. Composition (`composition/`)
 
-Layout primitives and structural patterns for page composition. These are reusable layout components that handle how elements are arranged spatially.
+Layout primitives and structural patterns for page composition:
+
+- **container.css**: Responsive container with fluid max-width
 
 #### 3. Utilities (`utilities/`)
 
@@ -68,6 +86,7 @@ Single-purpose classes for common styling needs:
 - **flow.css**: Vertical rhythm utility for consistent spacing between elements
 - **border.css**: Border utilities with color variations
 - **text-color.css**: Text color utilities
+- **text-align.css**: Text alignment utilities
 - **font-size.css**: Font size utilities
 - **margin.css**: Margin spacing utilities
 - **padding.css**: Padding spacing utilities
@@ -92,9 +111,9 @@ Based on Open Color palette:
 
 #### Typography
 
-- `--font-base`: Base font family (DM Serif Text)
-- `--font-display`: Display font family (DM Serif Display)
-- `--fs--2` to `--fs-5`: Fluid font size scale using clamp()
+- `--font-base`: Base font family (DM Serif Text, ui-serif, Georgia, Cambria, Times New Roman, Times, serif)
+- `--font-display`: Display font family (DM Serif Display, ui-serif, Georgia, Cambria, Times New Roman, Times, serif)
+- `--fs--2` to `--fs-7`: Fluid font size scale using clamp()
 
 #### Spacing
 
@@ -117,7 +136,7 @@ Based on Open Color palette:
 
 #### Font Size
 
-- `.fs--2`, `.fs--1`, `.fs-0`, `.fs-1`, `.fs-2`, `.fs-3`, `.fs-4`, `.fs-5`
+- `.fs--2`, `.fs--1`, `.fs-0`, `.fs-1`, `.fs-2`, `.fs-3`, `.fs-4`, `.fs-5`, `.fs-6`, `.fs-7`
 
 #### Margin
 
@@ -138,6 +157,10 @@ Based on Open Color palette:
 
 - All sizes: `.gap-3xs` to `.gap-3xl`
 - Reset: `.gap-0`
+
+#### Text Alignment
+
+- `.text-left`, `.text-center`, `.text-right`, `.text-justify`, `.text-start`, `.text-end`
 
 #### Flow
 
