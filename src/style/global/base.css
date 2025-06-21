@@ -53,14 +53,13 @@ a {
 	color: currentColor;
 }
 
-a:not([class]) {
-	text-underline-offset: 0.2ex;
-	text-decoration-thickness: 0.1em;
-	text-decoration-color: var(--clr-accent-fade);
+a {
+	color: inherit;
+	text-decoration: none;
 }
 
-a:not([class]):hover {
-	text-decoration-color: var(--clr-accent);
+a:hover {
+	color: var(--clr-accent);
 }
 
 blockquote {
