@@ -1,4 +1,17 @@
+@import 'open-color';
 :root {
+	/* COLORS */
+	--clr-surface: var(--oc-gray-0);
+	--clr-border: var(--oc-gray-2);
+	--clr-border-strong: var(--oc-gray-3);
+	--clr-divider: var(--oc-gray-4);
+	--clr-text-fade: var(--oc-gray-5);
+	--clr-text-disabled: var(--oc-gray-6);
+	--clr-text: var(--oc-gray-8);
+	--clr-text-strong: var(--oc-gray-9);
+	--clr-accent: var(--oc-yellow-8);
+	--clr-accent-fade: var(--oc-yellow-5);
+
 	/* FONTS */
 	--font-base: 'DM Serif Text', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
 	--font-display: 'DM Serif Display', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
