@@ -1,3 +1,33 @@
+## Technology Stack
+
+- **Astro**: Static site generator with excellent TypeScript support
+- **astro-typesafe-routes**: Type-safe routing with IntelliSense
+- **Open Color**: Consistent color palette system
+- **Utopia**: Fluid typography and spacing scales
+
+## Component Architecture
+
+### Import Alias
+Uses `#*` alias for clean imports pointing to `./src/*`:
+```astro
+import BaseLayout from '#layouts/Base.astro'
+import Nav from '#components/Nav.astro'
+```
+
+### Structure
+- **Layouts** (`#layouts/`): HTML structure and global styles
+- **Components** (`#components/`): Reusable UI components with type-safe navigation
+
+### Content Rendering
+Pages use Astro's content collections with the `render()` function:
+```astro
+---
+const { render } = await entry.render()
+const { Content } = render
+---
+<Content />
+```
+
 ## CSS
 
 This project uses a structured CSS architecture organized into logical layers for maintainability and scalability.
@@ -119,10 +149,10 @@ graph TD
     A --> D["expositions/"]
     A --> E["hommages/"]
     A --> F["recherche/"]
-    
+
     B --> B1["biographie"]
     B --> B2["cv"]
-    
+
     C --> C1["articles/"]
     C --> C2["ouvrages/"]
     C --> C3["bibliographie"]
@@ -130,13 +160,13 @@ graph TD
     C1 --> C1b["[slug]"]
     C2 --> C2a["index"]
     C2 --> C2b["[slug]"]
-    
+
     D --> D1["index"]
     D --> D2["[slug]"]
-    
+
     E --> E1["index"]
     E --> E2["[slug]"]
-    
+
     F --> F1["colloques/"]
     F --> F2["memoire"]
     F --> F3["projet-de-these"]
