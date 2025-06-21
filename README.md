@@ -40,7 +40,9 @@ Single-purpose classes for common styling needs:
 ### CSS Variables
 
 #### Colors
-Based on Open Color gray palette with semantic naming:
+
+Based on Open Color palette:
+
 - `--clr-surface`: Background color (gray-0)
 - `--clr-border`: Border color (gray-2)
 - `--clr-border-strong`: Strong border color (gray-3)
@@ -53,30 +55,36 @@ Based on Open Color gray palette with semantic naming:
 - `--clr-accent-fade`: Faded accent color (yellow-5)
 
 #### Typography
+
 - `--font-base`: Base font family (DM Serif Text)
 - `--font-display`: Display font family (DM Serif Display)
 - `--fs--2` to `--fs-5`: Fluid font size scale using clamp()
 
 #### Spacing
+
 - `--space-3xs` to `--space-3xl`: Fluid spacing scale using clamp()
 
 ### Utility Classes
 
 #### Border
+
 - `.border`, `.border-strong`, `.border-divider`, `.border-accent`, `.border-accent-fade`
 - Directional: `.border-top`, `.border-right`, `.border-bottom`, `.border-left`
 - Strong variants: `.border-top-strong`, `.border-right-strong`, `.border-bottom-strong`, `.border-left-strong`
 - Reset: `.border-none`
 
 #### Text Color
+
 - `.text-base`, `.text-strong`, `.text-fade`, `.text-disabled`
 - `.text-accent`, `.text-accent-fade`
 - `.text-inherit`, `.text-current`
 
 #### Font Size
+
 - `.fs--2`, `.fs--1`, `.fs-0`, `.fs-1`, `.fs-2`, `.fs-3`, `.fs-4`, `.fs-5`
 
 #### Margin
+
 - All sizes: `.m-3xs` to `.m-3xl`
 - Directional: `.mt-*`, `.mr-*`, `.mb-*`, `.ml-*`
 - Axis: `.mx-*`, `.my-*`
@@ -84,12 +92,14 @@ Based on Open Color gray palette with semantic naming:
 - Auto: `.m-auto`, `.mt-auto`, `.mb-auto`, `.ml-auto`, `.mr-auto`
 
 #### Padding
+
 - All sizes: `.p-3xs` to `.p-3xl`
 - Directional: `.pt-*`, `.pr-*`, `.pb-*`, `.pl-*`
 - Axis: `.px-*`, `.py-*`
 - Reset: `.p-0`, `.pt-0`, `.pr-0`, `.pb-0`, `.pl-0`, `.px-0`, `.py-0`
 
 #### Flow
+
 - `.flow`: Applies consistent vertical rhythm between child elements using `--flow-space` variable (defaults to 1em)
 
 ### Import Order
@@ -99,4 +109,3 @@ Styles are imported in cascade order of specificity:
 1. Global (variables, reset, base)
 2. Composition (layout)
 3. Utilities (helpers)
-
