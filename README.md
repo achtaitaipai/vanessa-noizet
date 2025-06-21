@@ -71,6 +71,7 @@ Single-purpose classes for common styling needs:
 - **font-size.css**: Font size utilities
 - **margin.css**: Margin spacing utilities
 - **padding.css**: Padding spacing utilities
+- **gap.css**: Gap utilities for flexbox and grid layouts
 
 ### CSS Variables
 
@@ -132,6 +133,11 @@ Based on Open Color palette:
 - Directional: `.pt-*`, `.pr-*`, `.pb-*`, `.pl-*`
 - Axis: `.px-*`, `.py-*`
 - Reset: `.p-0`, `.pt-0`, `.pr-0`, `.pb-0`, `.pl-0`, `.px-0`, `.py-0`
+
+#### Gap
+
+- All sizes: `.gap-3xs` to `.gap-3xl`
+- Reset: `.gap-0`
 
 #### Flow
 
