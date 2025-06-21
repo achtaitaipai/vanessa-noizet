@@ -46,3 +46,9 @@ h5,
 h6 {
 	text-wrap: balance;
 }
+
+ul[class],
+ol[class] {
+	list-style: none;
+	padding: 0;
+}
