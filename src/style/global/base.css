@@ -1,0 +1,74 @@
+body {
+	font-family: var(--font-base);
+	font-size: var(--fs-0);
+	line-height: 1.7;
+	color: #1a1a1a;
+	background-color: #fafafa;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-display);
+	line-height: 1.2;
+	color: #0a0a0a;
+	text-wrap: balance;
+}
+
+h1 {
+	font-size: var(--fs-5);
+	max-inline-size: 20ch;
+}
+
+h2 {
+	font-size: var(--fs-4);
+	max-inline-size: 24ch;
+}
+
+h3 {
+	font-size: var(--fs-3);
+	max-inline-size: 28ch;
+}
+
+h4 {
+	font-size: var(--fs-2);
+}
+
+h5 {
+	font-size: var(--fs-1);
+}
+
+h6 {
+	font-size: var(--fs-0);
+}
+
+p {
+	max-inline-size: 65ch;
+}
+
+a {
+	color: currentColor;
+	text-underline-offset: 0.2ex;
+	text-decoration-thickness: 0.1em;
+	text-decoration-color: #0066cc;
+}
+
+a:hover {
+	text-decoration-color: #004499;
+}
+
+blockquote {
+	max-inline-size: 50ch;
+	font-style: italic;
+	border-inline-start: 0.25rem solid #ddd;
+	padding-inline-start: var(--space-m);
+}
+
+ul,
+ol {
+	max-inline-size: 65ch;
+}
+
