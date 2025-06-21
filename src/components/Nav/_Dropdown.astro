@@ -34,35 +34,35 @@ const dropdownId = 'dropdown-' + crypto.randomUUID().split('-')[0]
 	import gsap from 'gsap'
 
 	class DropdownElement extends HTMLElement {
-		private button: HTMLButtonElement | null = null
-		private content: HTMLElement | null = null
-		private isOpen = false
-		private timeline: gsap.core.Timeline | null = null
+		#button: HTMLButtonElement | null = null
+		#content: HTMLElement | null = null
+		#isOpen = false
+		#timeline: gsap.core.Timeline | null = null
 
 		connectedCallback() {
-			this.button = this.querySelector('button')
-			this.content = this.querySelector('.content')
+			this.#button = this.querySelector('button')
+			this.#content = this.querySelector('.content')
 
-			if (this.button && this.content) {
+			if (this.#button && this.#content) {
 				this.setupAnimation()
-				this.button.addEventListener('click', this.toggle.bind(this))
+				this.#button.addEventListener('click', this.toggle.bind(this))
 				document.addEventListener('click', this.handleOutsideClick.bind(this))
 			}
 		}
 
 		disconnectedCallback() {
-			if (this.button) {
-				this.button.removeEventListener('click', this.toggle.bind(this))
+			if (this.#button) {
+				this.#button.removeEventListener('click', this.toggle.bind(this))
 			}
 			document.removeEventListener('click', this.handleOutsideClick.bind(this))
 		}
 
 		setupAnimation() {
-			if (!this.content) return
+			if (!this.#content) return
 
-			this.timeline = gsap.timeline({ paused: true })
+			this.#timeline = gsap.timeline({ paused: true })
 
-			gsap.set(this.content, {
+			gsap.set(this.#content, {
 				display: 'block',
 				opacity: 0,
 				y: -10,
@@ -70,7 +70,7 @@ const dropdownId = 'dropdown-' + crypto.randomUUID().split('-')[0]
 				transformOrigin: 'top center',
 			})
 
-			this.timeline.to(this.content, {
+			this.#timeline.to(this.#content, {
 				opacity: 1,
 				y: 0,
 				scaleY: 1,
@@ -79,25 +79,25 @@ const dropdownId = 'dropdown-' + crypto.randomUUID().split('-')[0]
 		}
 
 		toggle() {
-			this.isOpen = !this.isOpen
+			this.#isOpen = !this.#isOpen
 			this.updateDOM()
 		}
 
 		close() {
-			if (this.isOpen) {
-				this.isOpen = false
+			if (this.#isOpen) {
+				this.#isOpen = false
 				this.updateDOM()
 			}
 		}
 
 		updateDOM() {
-			if (this.button && this.content && this.timeline) {
-				this.button.setAttribute('aria-expanded', this.isOpen.toString())
+			if (this.#button && this.#content && this.#timeline) {
+				this.#button.setAttribute('aria-expanded', this.#isOpen.toString())
 
-				if (this.isOpen) {
-					this.timeline.play()
+				if (this.#isOpen) {
+					this.#timeline.play()
 				} else {
-					this.timeline.reverse()
+					this.#timeline.reverse()
 				}
 			}
 		}
@@ -126,22 +126,24 @@ const dropdownId = 'dropdown-' + crypto.randomUUID().split('-')[0]
 		cursor: pointer;
 		white-space: nowrap;
 	}
+
 	svg {
 		flex-shrink: 0;
 		transition: transform 0.2s;
 		transform-origin: center;
 	}
+
 	[aria-expanded='true']svg {
 		transform: rotate(180deg);
 	}
+
 	.content {
 		position: absolute;
 		top: 100%;
 		left: 0;
 		background: var(--clr-surface);
 		border: 1px solid var(--clr-border);
-		border-radius: 0.25rem;
-		/* padding: var(--space-xs); */
+		background: var(--clr-surface);
 		min-width: 12rem;
 		z-index: 10;
 	}
@@ -150,3 +152,4 @@ const dropdownId = 'dropdown-' + crypto.randomUUID().split('-')[0]
 		position: relative;
 	}
 </style>
+

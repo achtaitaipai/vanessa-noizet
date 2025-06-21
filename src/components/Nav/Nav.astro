@@ -1,6 +1,6 @@
 ---
 import Link from 'astro-typesafe-routes/link'
-import Dropdown from './Dropdown.astro'
+import Dropdown from './_Dropdown.astro'
 
 type Props = {
 	class?: string
@@ -71,7 +71,7 @@ const { class: className } = Astro.props
 		padding-inline: var(--space-xs);
 	}
 
-	.menu-list li {
+	.menu-list li a {
 		display: block;
 		padding-block: var(--space-2xs);
 	}
