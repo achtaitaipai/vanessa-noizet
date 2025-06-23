@@ -42,15 +42,22 @@ This is an Astro-based academic portfolio site using a content collections archi
 
 1. **Global** (`src/style/global/`) - Variables, reset, base styles
 2. **Composition** (`src/style/composition/`) - Layout primitives
-3. **Utilities** (`src/style/utilities/`) - Single-purpose classes
+3. **Utilities** - Generated on-demand by UnoCSS
 
-**Design Tokens**:
+**Design Tokens**: CSS Custom Properties as single source of truth:
 
 - Colors: Open Color palette with semantic naming (`--clr-text`, `--clr-surface`, etc.)
-- Typography: DM Serif fonts with fluid scale (`--fs--2` to `--fs-5`)
+- Typography: DM Serif fonts with fluid scale (`--fs--2` to `--fs-7`)
 - Spacing: Fluid scale using clamp() (`--space-3xs` to `--space-3xl`)
 
-**Utility Classes**: Comprehensive utilities for borders, text colors, font sizes, margin, padding, and flow rhythm
+**UnoCSS Integration**: Automatically generates utility classes from design tokens:
+
+- Font sizes: `fs-6`, `fs--1` → uses `var(--fs-*)`
+- Text colors: `text-base`, `text-accent` → uses `var(--clr-*)`
+- Spacing: `mt-2xl`, `p-s`, `gap-l` → uses `var(--space-*)`
+- Flow rhythm: `flow-m` → sets `--flow-space`
+
+**Configuration**: `uno.config.ts` contains custom rules mapping CSS variables to utility classes
 
 ### Routing & Type Safety
 
@@ -67,7 +74,7 @@ This is an Astro-based academic portfolio site using a content collections archi
 
 **Adding Content**: Create markdown files in `/data/[collection]/` with frontmatter matching collection schema
 
-**Styling**: Use utility classes first, add to appropriate CSS layer if needed
+**Styling**: Use UnoCSS utility classes first (generated from design tokens), add to appropriate CSS layer if needed
 
 **New Pages**: Follow existing patterns in `/src/pages/` using content collections and type-safe routing
 
