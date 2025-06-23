@@ -21,7 +21,9 @@
 		"open-color": "^1.9.1"
 	},
 	"devDependencies": {
+		"@unocss/astro": "^66.2.3",
 		"prettier": "^3.5.3",
-		"prettier-plugin-astro": "^0.14.1"
+		"prettier-plugin-astro": "^0.14.1",
+		"unocss": "^66.2.3"
 	}
 }
