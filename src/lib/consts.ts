@@ -1,4 +1,5 @@
-import { $path, type RouteOptions, type Routes } from 'astro-typesafe-routes/path'
+import { type RouteOptions, type Routes } from 'astro-typesafe-routes/path'
+
 type NavLink =
 	| {
 			label: string
@@ -7,8 +8,10 @@ type NavLink =
 	| {
 			label: string
 			url: RouteOptions<keyof Routes>['to']
+			params: null
 	  }
-export const navLinks: NavLink[] = [
+
+export const navLinks = [
 	{
 		label: 'À propos',
 		children: [
@@ -19,10 +22,12 @@ export const navLinks: NavLink[] = [
 	{
 		label: 'Hommages',
 		url: '/hommages',
+		params: null,
 	},
 	{
 		label: 'Expositions',
 		url: '/expositions',
+		params: null,
 	},
 	{
 		label: 'Écrits',
@@ -40,4 +45,4 @@ export const navLinks: NavLink[] = [
 			{ label: 'Projet de thèse', url: '/recherche/projet-de-these' },
 		],
 	},
-]
+] as const satisfies readonly NavLink[]

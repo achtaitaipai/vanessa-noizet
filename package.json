@@ -13,12 +13,14 @@
 		"#*": "./src/*"
 	},
 	"dependencies": {
+		"@astrojs/check": "^0.9.4",
 		"@fontsource/dm-serif-display": "^5.2.6",
 		"@fontsource/dm-serif-text": "^5.2.6",
 		"astro": "^5.9.4",
 		"astro-typesafe-routes": "^4.2.6",
 		"gsap": "^3.13.0",
-		"open-color": "^1.9.1"
+		"open-color": "^1.9.1",
+		"typescript": "^5.8.3"
 	},
 	"devDependencies": {
 		"@unocss/astro": "^66.2.3",

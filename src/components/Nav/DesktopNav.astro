@@ -15,7 +15,7 @@ const { class: className } = Astro.props
 		{
 			navLinks.map((link) => (
 				<li>
-					{link.children ? (
+					{'children' in link ? (
 						<Dropdown label={link.label} class="px-2xs">
 							<ul class="menu-list">
 								{link.children.map((child) => (
