@@ -1,6 +1,7 @@
 ---
 import Link from 'astro-typesafe-routes/link'
 import Dropdown from './_Dropdown.astro'
+import { navLinks } from '#lib/consts.ts'
 
 type Props = {
 	class?: string
@@ -11,54 +12,27 @@ const { class: className } = Astro.props
 
 <nav class:list={['container', className]}>
 	<ul class="links | gap-s">
-		<li>
-			<Dropdown label="À propos" class="px-2xs">
-				<ul class="menu-list">
-					<li>
-						<Link to="/a-propos/biographie">Biographie</Link>
-					</li>
-					<li>
-						<Link to="/a-propos/cv">Cv</Link>
-					</li>
-				</ul>
-			</Dropdown>
-		</li>
-		<li>
-			<Link to="/hommages" class="px-2xs">Hommages</Link>
-		</li>
-		<li>
-			<Link to="/expositions" class="px-2xs">Expositions</Link>
-		</li>
-		<li>
-			<Dropdown label="Écrits" class="px-2xs">
-				<ul class="menu-list">
-					<li>
-						<Link to="/ecrits/articles">Articles</Link>
-					</li>
-					<li>
-						<Link to="/ecrits/ouvrages">Ouvrages</Link>
-					</li>
-					<li>
-						<Link to="/ecrits/bibliographie">Bibliographie</Link>
-					</li>
-				</ul>
-			</Dropdown>
-		</li>
-		<li>
-			<Dropdown label="Recherche" class="px-2xs">
-				<ul class="menu-list">
-					<li>
-						<Link to="/recherche/colloques">Colloques</Link>
-					</li>
-					<li>
-						<Link to="/recherche/memoire">Mémoire</Link>
-					</li>
-					<li>
-						<Link to="/recherche/projet-de-these">Projet de thèse</Link>
-					</li>
-				</ul>
-			</Dropdown>
-		</li>
+		{
+			navLinks.map((link) => (
+				<li>
+					{link.children ? (
+						<Dropdown label={link.label} class="px-2xs">
+							<ul class="menu-list">
+								{link.children.map((child) => (
+									<li>
+										<Link to={child.url}>{child.label}</Link>
+									</li>
+								))}
+							</ul>
+						</Dropdown>
+					) : (
+						<Link to={link.url} class="px-2xs">
+							{link.label}
+						</Link>
+					)}
+				</li>
+			))
+		}
 	</ul>
 </nav>
 
