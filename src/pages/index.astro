@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '#layouts/Base.astro'
-import Nav from '#components/Nav/Nav.astro'
+import DesktopNav from '#components/Nav/DesktopNav.astro'
 const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 ---
 
@@ -10,7 +10,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '')
 			<img src={`${base}/vanessa.webp`} alt="" class="vanessaImg" />
 			<h1 class="fs-6">Vanessa Noizet</h1>
 		</div>
-		<Nav class="mt-xl" />
+		<DesktopNav class="mt-xl" />
 		<section class="hero | mt-xl gap-l">
 			<div class="flow fs-0">
 				<p>
