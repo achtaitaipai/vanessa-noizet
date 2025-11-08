@@ -1,29 +1,80 @@
-## Technology Stack
+# Vanessa Noizet - Portfolio
 
-- **Astro**: Static site generator with excellent TypeScript support
-- **astro-typesafe-routes**: Type-safe routing with IntelliSense
-- **Open Color**: Consistent color palette system
-- **Utopia**: Fluid typography and spacing scales
-- **GSAP**: High-performance animation library for smooth UI interactions
+Academic portfolio website for art historian Vanessa Noizet, built with Astro and a feature-based architecture.
 
-## Component Architecture
+## Getting Started
 
-### Import Alias
+```bash
+# Install dependencies
+npm install
 
-Uses `#*` alias for clean imports pointing to `./src/*`:
+# Start development server
+npm run dev
 
-```astro
-import BaseLayout from '#layouts/Base.astro' import Nav from '#components/Nav.astro'
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+
+# Format code
+npm run format
 ```
 
-### Structure
+## Technology Stack
 
-- **Layouts** (`#layouts/`): HTML structure and global styles
-- **Components** (`#components/`): Reusable UI components
+- **Astro** - Static site generator with TypeScript support
+- **astro-typesafe-routes** - Type-safe routing with compile-time validation
+- **UnoCSS** - On-demand utility class generation from design tokens
+- **Open Color** - Consistent color palette system
+- **GSAP** - High-performance animation library
 
-### Content Rendering
+## Architecture
 
-Pages use Astro's content collections with the `render()` function:
+### Feature-Based Structure
+
+Components and configuration are organized by feature domains with colocated files:
+
+```
+src/features/
+└── navigation/
+    ├── components/
+    │   ├── index.ts          # Barrel export
+    │   ├── desktop-nav.astro # Public component
+    │   └── _dropdown.astro   # Private component (underscore prefix)
+    └── config/
+        └── nav-links.ts      # Feature-specific configuration
+```
+
+**Import Pattern:**
+
+```astro
+// Feature exports via barrel file
+import { DesktopNav } from '#features/navigation/components'
+
+// Import alias (#* → ./src/*)
+import BaseLayout from '#layouts/base-layout.astro'
+```
+
+**Core Directories:**
+
+- `src/features/` - Feature modules with colocated components and config
+- `src/lib/` - Shared utilities and constants
+- `src/layouts/` - Page layout templates
+- `src/pages/` - File-based routing
+- `src/style/` - Global styles (ITCSS methodology)
+- `data/` - Content collections (markdown files)
+
+### Content Collections
+
+Content is separated from source code in `/data/[collection]/*.md`:
+
+```typescript
+// Collections: articles, expositions, hommages, colloques, ouvrages
+// Schema: { title: string, date: Date }
+```
+
+**Rendering:**
 
 ```astro
 ---
@@ -34,145 +85,44 @@ const { Content } = render
 <Content />
 ```
 
-## CSS
+### CSS Architecture
 
-This project uses a structured CSS architecture organized into logical layers for maintainability and scalability.
+**ITCSS Layers:**
 
-### Structure
+1. **Global** - CSS Custom Properties (design tokens), reset, base styles
+2. **Composition** - Layout primitives (`.container`, etc.)
+3. **Utilities** - Generated on-demand by UnoCSS
 
-```
-src/style/
-├── index.css          # Main entry point
-├── global/            # Global styles and foundations
-│   ├── variables.css  # CSS custom properties
-│   ├── reset.css      # CSS reset rules
-│   ├── base.css       # Base element styles
-│   └── index.css      # Imports all global styles
-├── composition/       # Layout primitives and structural patterns
-│   ├── container.css  # Container layout component
-│   └── index.css      # Imports all composition styles
-└── utilities/         # Single-purpose utility classes
-    ├── border.css     # Border utilities
-    ├── flow.css       # Flow rhythm utility
-    ├── font-size.css  # Font size utilities
-    ├── gap.css        # Gap utilities
-    ├── margin.css     # Margin utilities
-    ├── padding.css    # Padding utilities
-    ├── text-align.css # Text alignment utilities
-    ├── text-color.css # Text color utilities
-    └── index.css      # Imports all utility styles
+**Design Tokens:**
+
+```css
+/* Colors (Open Color palette) */
+--clr-text, --clr-surface, --clr-accent
+
+/* Typography (fluid scale) */
+--fs--2 to --fs-7
+
+/* Spacing (fluid scale with clamp) */
+--space-3xs to --space-3xl
 ```
 
-### Layers
+**UnoCSS Utilities:**
 
-#### 1. Global (`global/`)
+```html
+<!-- Font sizes -->
+<h1 class="fs-6">Title</h1>
 
-Foundation styles that apply globally:
+<!-- Text colors -->
+<p class="text-base text-accent">Text</p>
 
-- **variables.css**: CSS custom properties for colors, typography, and spacing
-- **reset.css**: CSS reset for consistent cross-browser baseline
-- **base.css**: Sensible defaults for HTML elements with optimal typography
+<!-- Spacing -->
+<div class="mt-2xl p-s gap-l">Content</div>
 
-#### 2. Composition (`composition/`)
+<!-- Flow rhythm -->
+<article class="flow-m">...</article>
+```
 
-Layout primitives and structural patterns for page composition:
-
-- **container.css**: Responsive container with fluid max-width
-
-#### 3. Utilities (`utilities/`)
-
-Single-purpose classes for common styling needs:
-
-- **flow.css**: Vertical rhythm utility for consistent spacing between elements
-- **border.css**: Border utilities with color variations
-- **text-color.css**: Text color utilities
-- **text-align.css**: Text alignment utilities
-- **font-size.css**: Font size utilities
-- **margin.css**: Margin spacing utilities
-- **padding.css**: Padding spacing utilities
-- **gap.css**: Gap utilities for flexbox and grid layouts
-
-### CSS Variables
-
-#### Colors
-
-Based on Open Color palette:
-
-- `--clr-surface`: Background color (gray-0)
-- `--clr-border`: Border color (gray-2)
-- `--clr-border-strong`: Strong border color (gray-3)
-- `--clr-divider`: Divider color (gray-4)
-- `--clr-text-fade`: Faded text color (gray-5)
-- `--clr-text-disabled`: Disabled text color (gray-6)
-- `--clr-text`: Base text color (gray-8)
-- `--clr-text-strong`: Strong text color (gray-9)
-- `--clr-accent`: Accent color (yellow-8)
-- `--clr-accent-fade`: Faded accent color (yellow-5)
-
-#### Typography
-
-- `--font-base`: Base font family (DM Serif Text, ui-serif, Georgia, Cambria, Times New Roman, Times, serif)
-- `--font-display`: Display font family (DM Serif Display, ui-serif, Georgia, Cambria, Times New Roman, Times, serif)
-- `--fs--2` to `--fs-7`: Fluid font size scale using clamp()
-
-#### Spacing
-
-- `--space-3xs` to `--space-3xl`: Fluid spacing scale using clamp()
-
-### Utility Classes
-
-#### Border
-
-- `.border`, `.border-strong`, `.border-divider`, `.border-accent`, `.border-accent-fade`
-- Directional: `.border-top`, `.border-right`, `.border-bottom`, `.border-left`
-- Strong variants: `.border-top-strong`, `.border-right-strong`, `.border-bottom-strong`, `.border-left-strong`
-- Reset: `.border-none`
-
-#### Text Color
-
-- `.text-base`, `.text-strong`, `.text-fade`, `.text-disabled`
-- `.text-accent`, `.text-accent-fade`
-- `.text-inherit`, `.text-current`
-
-#### Font Size
-
-- `.fs--2`, `.fs--1`, `.fs-0`, `.fs-1`, `.fs-2`, `.fs-3`, `.fs-4`, `.fs-5`, `.fs-6`, `.fs-7`
-
-#### Margin
-
-- All sizes: `.m-3xs` to `.m-3xl`
-- Directional: `.mt-*`, `.mr-*`, `.mb-*`, `.ml-*`
-- Axis: `.mx-*`, `.my-*`
-- Reset: `.m-0`, `.mt-0`, `.mr-0`, `.mb-0`, `.ml-0`, `.mx-0`, `.my-0`
-- Auto: `.m-auto`, `.mt-auto`, `.mb-auto`, `.ml-auto`, `.mr-auto`
-
-#### Padding
-
-- All sizes: `.p-3xs` to `.p-3xl`
-- Directional: `.pt-*`, `.pr-*`, `.pb-*`, `.pl-*`
-- Axis: `.px-*`, `.py-*`
-- Reset: `.p-0`, `.pt-0`, `.pr-0`, `.pb-0`, `.pl-0`, `.px-0`, `.py-0`
-
-#### Gap
-
-- All sizes: `.gap-3xs` to `.gap-3xl`
-- Reset: `.gap-0`
-
-#### Text Alignment
-
-- `.text-left`, `.text-center`, `.text-right`, `.text-justify`, `.text-start`, `.text-end`
-
-#### Flow
-
-- `.flow`: Applies consistent vertical rhythm between child elements using `--flow-space` variable (defaults to 1em)
-
-### Import Order
-
-Styles are imported in cascade order of specificity:
-
-1. Global (variables, reset, base)
-2. Composition (layout)
-3. Utilities (helpers)
+Configuration in `uno.config.ts` maps CSS variables to utility classes.
 
 ## Routes
 

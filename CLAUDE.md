@@ -17,70 +17,96 @@ Always run `npm run format` before committing to ensure consistent formatting.
 
 ## Project Architecture
 
+This is an Astro-based academic portfolio site using a feature-based architecture with content collections.
+
+### Source Organization
+
+**Feature-Based Structure**: Code is organized by feature domains in `src/features/[feature]/`:
+
+```
+src/features/
+└── navigation/
+    ├── components/
+    │   ├── index.ts          # Barrel export
+    │   ├── desktop-nav.astro # Public component
+    │   └── _dropdown.astro   # Private component (prefix with _)
+    └── config/
+        └── nav-links.ts      # Feature-specific configuration
+```
+
+**Import Pattern**: Features export components via barrel files:
+```typescript
+// In feature's index.ts
+export { DesktopNav } from './desktop-nav.astro'
+
+// Usage in pages
+import { DesktopNav } from '#features/navigation/components'
+```
+
+**Core Directories**:
+- `src/features/` - Feature modules with colocated components and config
+- `src/lib/` - Shared utilities and constants
+- `src/layouts/` - Page layout templates
+- `src/pages/` - Astro file-based routing
+- `src/style/` - Global styles following ITCSS methodology
+
+**Import Alias**: Uses `#*` for `./src/*` (configured in `package.json` imports field)
+
 ### Content Collections System
 
-This is an Astro-based academic portfolio site using a content collections architecture:
+**Separation of Concerns**: Content lives in `/data/[collection]/*.md` (outside `/src/`)
 
-**Content Location**: All content lives in `/data/[collection]/*.md` (separate from `/src/`)
+**Collections** (defined in `src/content.config.ts`):
+- `articles`, `expositions`, `hommages`, `colloques`, `ouvrages`
+- All use schema: `{ title: string, date: Date }`
+- Loaded via `glob` loader from `data/[collection]/` directories
 
-**Collections**:
+**Dynamic Routing**: Use `getStaticPathsFromCollection()` helper from `src/lib/routes.ts` to generate static paths
 
-- `articles` - Academic articles
-- `expositions` - Exhibition information
-- `hommages` - Tributes and honors
-- `colloques` - Conference proceedings
-- `ouvrages` - Published works
-- `pages` - Static page content
+### Type Safety
 
-**Schema**: All collections use `{ title: string, date: Date }` schema
-
-**Dynamic Routing**: Uses `getStaticPathsFromCollection()` helper in `src/lib/routes.ts` to generate static paths from collections
+**astro-typesafe-routes**: Provides compile-time route validation
+- Use `<Link to="/path">` instead of `<a href>`
+- Routes typed based on `src/pages/` structure
+- Route references use `RouteOptions<keyof Routes>['to']` for type safety
 
 ### CSS Architecture
 
-**Structure**: Follows ITCSS methodology with three layers:
+**ITCSS Layers**:
+1. **Global** (`src/style/global/`) - CSS Custom Properties, reset, base styles
+2. **Composition** (`src/style/composition/`) - Layout primitives like `.container`
+3. **Utilities** - Generated on-demand by UnoCSS from design tokens
 
-1. **Global** (`src/style/global/`) - Variables, reset, base styles
-2. **Composition** (`src/style/composition/`) - Layout primitives
-3. **Utilities** - Generated on-demand by UnoCSS
+**Design Tokens** (CSS Custom Properties):
+- Colors: `--clr-text`, `--clr-surface`, `--clr-accent`, etc. (Open Color palette)
+- Typography: `--fs--2` to `--fs-7` (fluid scale)
+- Spacing: `--space-3xs` to `--space-3xl` (fluid scale using clamp)
 
-**Design Tokens**: CSS Custom Properties as single source of truth:
+**UnoCSS Integration** (`uno.config.ts`):
+- Automatically generates utilities from CSS variables
+- Font sizes: `fs-6`, `fs--1`
+- Text colors: `text-base`, `text-accent`
+- Spacing: `mt-2xl`, `p-s`, `gap-l`
+- Flow rhythm: `flow-m` (sets `--flow-space`)
 
-- Colors: Open Color palette with semantic naming (`--clr-text`, `--clr-surface`, etc.)
-- Typography: DM Serif fonts with fluid scale (`--fs--2` to `--fs-7`)
-- Spacing: Fluid scale using clamp() (`--space-3xs` to `--space-3xl`)
-
-**UnoCSS Integration**: Automatically generates utility classes from design tokens:
-
-- Font sizes: `fs-6`, `fs--1` → uses `var(--fs-*)`
-- Text colors: `text-base`, `text-accent` → uses `var(--clr-*)`
-- Spacing: `mt-2xl`, `p-s`, `gap-l` → uses `var(--space-*)`
-- Flow rhythm: `flow-m` → sets `--flow-space`
-
-**Configuration**: `uno.config.ts` contains custom rules mapping CSS variables to utility classes
-
-### Routing & Type Safety
-
-**Import Alias**: Uses `#*` for `./src/*` (e.g., `import BaseLayout from '#layouts/Base.astro'`)
-
-**Type-Safe Routing**: Uses `astro-typesafe-routes` for compile-time route validation
-
-**URL Structure**:
-
-- Static pages: `/a-propos/biographie`, `/recherche/memoire`
-- Dynamic collections: `/ecrits/articles/[slug]`, `/expositions/[slug]`
+**Styling Workflow**: Use UnoCSS utilities first, add to appropriate CSS layer only when needed
 
 ### Development Patterns
 
-**Adding Content**: Create markdown files in `/data/[collection]/` with frontmatter matching collection schema
+**Adding Content**: Create markdown files in `/data/[collection]/` with frontmatter `{ title, date }`
 
-**Styling**: Use UnoCSS utility classes first (generated from design tokens), add to appropriate CSS layer if needed
+**New Features**: Follow feature-based structure:
+1. Create `src/features/[feature]/` directory
+2. Add `components/` for UI components (prefix private ones with `_`)
+3. Add `config/` for feature-specific constants and configuration
+4. Create `components/index.ts` barrel export
+5. Import via `#features/[feature]/components`
 
-**New Pages**: Follow existing patterns in `/src/pages/` using content collections and type-safe routing
+**Feature Constants**: Colocate feature-specific config in `src/features/[feature]/config/` (e.g., `nav-links.ts` in navigation feature)
 
-**Component Structure**: Use Astro components with frontmatter, leverage `#` import alias
+**Shared Constants**: Add truly shared utilities and constants to `src/lib/` when used across multiple features
 
 ### Deployment Configuration
 
-- **Base path**: `vanessa-noizet` (configured for subdirectory deployment)
-- **Static generation**: All pages are statically generated at build time
+- **Base path**: `vanessa-noizet` (subdirectory deployment)
+- **Static generation**: All pages pre-rendered at build time
