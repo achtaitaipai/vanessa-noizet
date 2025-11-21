@@ -43,21 +43,17 @@ const dropdownId = 'dropdown-' + crypto.randomUUID().split('-')[0]
 			this.#button = this.querySelector('button')
 			this.#content = this.querySelector('.content')
 
-			if (this.#button && this.#content) {
-				this.setupAnimation()
-				this.#button.addEventListener('click', this.toggle.bind(this))
-				document.addEventListener('click', this.handleOutsideClick.bind(this))
-			}
+			this.#setupAnimation()
+			this.#button?.addEventListener('click', this.#handleClick.bind(this))
+			document.addEventListener('click', this.#handleOutsideClick.bind(this))
 		}
 
 		disconnectedCallback() {
-			if (this.#button) {
-				this.#button.removeEventListener('click', this.toggle.bind(this))
-			}
-			document.removeEventListener('click', this.handleOutsideClick.bind(this))
+			this.#button?.removeEventListener('click', this.#handleClick.bind(this))
+			document.removeEventListener('click', this.#handleOutsideClick.bind(this))
 		}
 
-		setupAnimation() {
+		#setupAnimation() {
 			if (!this.#content) return
 
 			this.#timeline = gsap.timeline({ paused: true })
@@ -78,19 +74,23 @@ const dropdownId = 'dropdown-' + crypto.randomUUID().split('-')[0]
 			})
 		}
 
-		toggle() {
-			this.#isOpen = !this.#isOpen
-			this.updateDOM()
+		#handleClick() {
+			this.#toggle()
 		}
 
-		close() {
+		#toggle(newValue: boolean = !this.#isOpen) {
+			this.#isOpen = newValue
+			this.#updateDOM()
+		}
+
+		#close() {
 			if (this.#isOpen) {
 				this.#isOpen = false
-				this.updateDOM()
+				this.#updateDOM()
 			}
 		}
 
-		updateDOM() {
+		#updateDOM() {
 			if (this.#button && this.#content && this.#timeline) {
 				this.#button.setAttribute('aria-expanded', this.#isOpen.toString())
 
@@ -102,9 +102,9 @@ const dropdownId = 'dropdown-' + crypto.randomUUID().split('-')[0]
 			}
 		}
 
-		handleOutsideClick(event: Event) {
+		#handleOutsideClick(event: Event) {
 			if (!this.contains(event.target as Node)) {
-				this.close()
+				this.#close()
 			}
 		}
 	}
@@ -152,4 +152,3 @@ const dropdownId = 'dropdown-' + crypto.randomUUID().split('-')[0]
 		position: relative;
 	}
 </style>
-
