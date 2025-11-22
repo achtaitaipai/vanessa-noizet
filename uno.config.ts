@@ -122,13 +122,17 @@ export default defineConfig({
 				'--flow-space': `var(--space-${size})`,
 			}),
 		],
-	],
 
-	shortcuts: [
-		// Text alignment shortcuts (preserve existing)
-		['text-center', 'text-align-center'],
-		['text-left', 'text-align-left'],
-		['text-right', 'text-align-right'],
+		// Border utilities with dynamic colors
+		[/^border-top-(.+)$/, ([, color]) => ({ 'border-top': `1px solid var(--clr-${color})` })],
+		[/^border-right-(.+)$/, ([, color]) => ({ 'border-right': `1px solid var(--clr-${color})` })],
+		[/^border-bottom-(.+)$/, ([, color]) => ({ 'border-bottom': `1px solid var(--clr-${color})` })],
+		[/^border-left-(.+)$/, ([, color]) => ({ 'border-left': `1px solid var(--clr-${color})` })],
+		[/^border-(.+)$/, ([, color]) => ({ border: `1px solid var(--clr-${color})` })],
+
+		// Border shortcuts for most common cases
+		['border', { border: '1px solid var(--clr-border)' }],
+		['border-none', { border: 'none' }],
 	],
 
 	presets: [],
